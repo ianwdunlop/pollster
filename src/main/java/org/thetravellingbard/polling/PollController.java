@@ -34,7 +34,7 @@ public class PollController {
         List<Option> options = new ArrayList<>();
         for (Option optionIn : poll.getOptionList()) {
             // new Option
-            Option option = new Option(optionIn.getText(), optionIn.getCategory(), optionIn.getContent());
+            Option option = new Option(optionIn.getText());
             // set owner to this option
             option.setPoll(pollIn);
             // add option to list
@@ -63,15 +63,13 @@ public class PollController {
         List<Option> blogs = new ArrayList<>();
 
 	// new Blog
-        Option blog = new Option("Build application server using NodeJs", "nodeJs",
-                "We will build REStful api using nodeJs.");
+        Option blog = new Option("Build application server using NodeJs");
 	// set owner to blog
         blog.setPoll(ownerTemp);
         // add Blog to list
         blogs.add(blog);
 
-        blog = new Option("Single Page Application using Angular", "Angular",
-                "We can build robust application using Angular framework.");
+        blog = new Option("Single Page Application using Angular");
 	// set owner to blog
         blog.setPoll(ownerTemp);
         blogs.add(blog);

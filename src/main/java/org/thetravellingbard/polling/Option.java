@@ -34,10 +34,8 @@ public class Option {
 
     public Option() { }
 
-    public Option(String text, String category, String content) {
+    public Option(String text) {
         this.text = text;
-        this.category = category;
-        this.content = content;
     }
 
     public int getId() { return id; }
@@ -46,18 +44,11 @@ public class Option {
     public String getText() { return text; }
     public void setText(String title) { this.text = title; }
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-
     public Poll getPoll() { return poll; }
     public void setPoll(Poll owner) { this.poll = owner; }
     
     @Override
     public String toString() {
-        return "{" + "\"id\"=" + id + ", \"text\"=\"" + text + "\"" + ", \"category\"=\"" + category + "\"" +
-                ", \"content\"=\"" + content + "\"" + "}";
+        return "{" + "\"id\"=" + id + ", \"text\"=\"" + text + "\"" + "}";
     }
 }
