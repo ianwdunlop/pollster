@@ -60,28 +60,28 @@ public class PollController {
         Poll ownerTemp = pollRepository.getReferenceById(Integer.valueOf(id));
 
 	// list of Blog
-        List<Option> blogs = new ArrayList<>();
+        List<Option> options = new ArrayList<>();
 
 	// new Blog
-        Option blog = new Option("Build application server using NodeJs");
+        Option option = new Option("Build application server using NodeJs");
 	// set owner to blog
-        blog.setPoll(ownerTemp);
+        option.setPoll(ownerTemp);
         // add Blog to list
-        blogs.add(blog);
+        options.add(option);
 
-        blog = new Option("Single Page Application using Angular");
+        option = new Option("Single Page Application using Angular");
 	// set owner to blog
-        blog.setPoll(ownerTemp);
-        blogs.add(blog);
+        option.setPoll(ownerTemp);
+        options.add(option);
 
 	// add Blog list to Owner
-        ownerTemp.setOptionList(blogs);
+        ownerTemp.setOptionList(options);
 
 	// save Owner
         pollRepository.save(ownerTemp);
 
         System.out.println("Saved!!!");
-        return "Blog saved!!!";
+        return "Option saved!!!";
     }
 
     @GetMapping("/getPoll/{id}")
@@ -98,15 +98,15 @@ public class PollController {
     }
 
     @GetMapping("/getOption/{id}")
-    public String getBlog(@PathVariable(name = "id") String id) {
-        System.out.println("Blog get called...");
+    public String getOption(@PathVariable(name = "id") String id) {
+        System.out.println("Option get called...");
 
 	// fetch Blog
-        Option blogOut = optionRepository.getReferenceById(Integer.valueOf(id));
-        System.out.println("\nBlog details :: \n" + blogOut);
-        System.out.println("\nOwner details :: \n" + blogOut.getPoll());
+        Option optionOut = optionRepository.getReferenceById(Integer.valueOf(id));
+        System.out.println("\nBlog details :: \n" + optionOut);
+        System.out.println("\nOwner details :: \n" + optionOut.getPoll());
 
         System.out.println("\nDone!!!");
-        return "Blog fetched...";
+        return "Option fetched...";
     }
 }
