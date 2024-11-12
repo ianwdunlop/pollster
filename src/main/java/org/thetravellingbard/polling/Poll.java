@@ -21,8 +21,8 @@ public class Poll {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "question")
+    private String question;
 
     @Column(name = "email")
     private String email;
@@ -32,16 +32,16 @@ public class Poll {
 
     public Poll() { }
 
-    public Poll(String name, String email) {
-        this.name = name;
+    public Poll(String question, String email) {
+        this.question = question;
         this.email = email;
     }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getName() {return name; }
-    public void setName(String name) { this.name = name; }
+    public String getQuestion() {return question; }
+    public void setQuestion(String name) { this.question = name; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -55,6 +55,6 @@ public class Poll {
         for (Option blog: getBlogList()) {
             blogs += blog.toString();
         }
-        return "{" + "\"id\"=" + id + ", \"name\"=\"" + name + "\"" +  ", \"blogs\": [" + blogs + "]" + "}";
+        return "{" + "\"id\"=" + id + ", \"question\"=\"" + question + "\"" +  ", \"blogs\": [" + blogs + "]" + "}";
     }
 }

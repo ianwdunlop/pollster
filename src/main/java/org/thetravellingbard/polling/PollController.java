@@ -28,7 +28,7 @@ public class PollController {
         System.out.println("Owner save called...");
 
 	// a new poll
-        Poll pollIn = new Poll(owner.getName(), owner.getEmail());
+        Poll pollIn = new Poll(owner.getQuestion(), owner.getEmail());
 
 	// list of Options
         List<Option> options = new ArrayList<>();
