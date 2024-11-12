@@ -2,5 +2,5 @@ package org.thetravellingbard.polling;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OwnerRepository extends JpaRepository<Owner,Integer> {
+public interface OptionRepository extends JpaRepository<Option, Integer> {
 }

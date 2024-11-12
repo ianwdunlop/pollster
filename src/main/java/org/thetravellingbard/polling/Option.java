@@ -11,8 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "BLOG_DETAILS")
-public class Blog {
+@Table(name = "OPTION_DETAILS")
+public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,11 @@ public class Blog {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id")
-    private Owner owner;
+    private Poll owner;
 
-    public Blog() { }
+    public Option() { }
 
-    public Blog(String title, String category, String content) {
+    public Option(String title, String category, String content) {
         this.title = title;
         this.category = category;
         this.content = content;
@@ -52,8 +52,8 @@ public class Blog {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public Owner getOwner() { return owner; }
-    public void setOwner(Owner owner) { this.owner = owner; }
+    public Poll getOwner() { return owner; }
+    public void setOwner(Poll owner) { this.owner = owner; }
     
     @Override
     public String toString() {

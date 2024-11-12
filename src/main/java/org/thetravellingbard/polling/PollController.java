@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/owner")
-public class OwnerController {
+@RequestMapping("/poll")
+public class PollController {
     @Autowired
-    private OwnerRepository ownerRepository;
+    private PollRepository ownerRepository;
 
     @Autowired
-    private BlogRepository blogRepository;
+    private OptionRepository blogRepository;
 
-    @PostMapping("/saveOwner")
-    public String saveOwner(@RequestBody Owner owner) {
+    @PostMapping("/savePoll")
+    public String saveOwner(@RequestBody Poll owner) {
         System.out.println("Owner save called...");
 
 	// a new poll
-        Owner pollIn = new Owner(owner.getName(), owner.getEmail());
+        Poll pollIn = new Poll(owner.getName(), owner.getEmail());
 
 	// list of Options
-        List<Blog> options = new ArrayList<>();
-        for (Blog optionIn : owner.getBlogList()) {
+        List<Option> options = new ArrayList<>();
+        for (Option optionIn : owner.getBlogList()) {
             // new Option
-            Blog option = new Blog(optionIn.getTitle(), optionIn.getCategory(), optionIn.getContent());
+            Option option = new Option(optionIn.getTitle(), optionIn.getCategory(), optionIn.getContent());
             // set owner to this option
             option.setOwner(pollIn);
             // add option to list
@@ -45,32 +45,32 @@ public class OwnerController {
         pollIn.setBlogList(options);
 
 	// save Owner
-        Owner pollOut = ownerRepository.save(pollIn);
+        Poll pollOut = ownerRepository.save(pollIn);
         System.out.println("Poll out :: " + pollOut);
 
         System.out.println("Saved!!!");
         return "Poll saved!!!";
     }
 
-    @PostMapping("/saveBlog")
+    @PostMapping("/saveOption")
     public String saveBlog(@RequestParam(name = "id") String id) {
         System.out.println("Blog save called...");
 	
 	// fetch Ower
-        Owner ownerTemp = ownerRepository.getReferenceById(Integer.valueOf(id));
+        Poll ownerTemp = ownerRepository.getReferenceById(Integer.valueOf(id));
 
 	// list of Blog
-        List<Blog> blogs = new ArrayList<>();
+        List<Option> blogs = new ArrayList<>();
 
 	// new Blog
-        Blog blog = new Blog("Build application server using NodeJs", "nodeJs",
+        Option blog = new Option("Build application server using NodeJs", "nodeJs",
                 "We will build REStful api using nodeJs.");
 	// set owner to blog
         blog.setOwner(ownerTemp);
         // add Blog to list
         blogs.add(blog);
 
-        blog = new Blog("Single Page Application using Angular", "Angular",
+        blog = new Option("Single Page Application using Angular", "Angular",
                 "We can build robust application using Angular framework.");
 	// set owner to blog
         blog.setOwner(ownerTemp);
@@ -86,12 +86,12 @@ public class OwnerController {
         return "Blog saved!!!";
     }
 
-    @GetMapping("/getOwner/{id}")
+    @GetMapping("/getPoll/{id}")
     public ResponseEntity<String> getOwner(@PathVariable(name = "id") String id) {
         System.out.println("Owner get called...");
 
 	// fetch Owner
-        Owner ownerOut = ownerRepository.getReferenceById(Integer.valueOf(id));
+        Poll ownerOut = ownerRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nOwner details :: \n" + ownerOut);
         System.out.println("\nList of Blogs :: \n" + ownerOut.getBlogList());
 
@@ -99,12 +99,12 @@ public class OwnerController {
         return new ResponseEntity<String>(ownerOut.toString(), HttpStatus.OK);
     }
 
-    @GetMapping("/getBlog/{id}")
+    @GetMapping("/getOption/{id}")
     public String getBlog(@PathVariable(name = "id") String id) {
         System.out.println("Blog get called...");
 
 	// fetch Blog
-        Blog blogOut = blogRepository.getReferenceById(Integer.valueOf(id));
+        Option blogOut = blogRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nBlog details :: \n" + blogOut);
         System.out.println("\nOwner details :: \n" + blogOut.getOwner());
 

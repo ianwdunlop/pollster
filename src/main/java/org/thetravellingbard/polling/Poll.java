@@ -13,8 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "OWNER_DETAILS")
-public class Owner {
+@Table(name = "POLL_DETAILS")
+public class Poll {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,11 @@ public class Owner {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Blog> blogList;
+    private List<Option> blogList;
 
-    public Owner() { }
+    public Poll() { }
 
-    public Owner(String name, String email) {
+    public Poll(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -46,13 +46,13 @@ public class Owner {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public List<Blog> getBlogList() { return blogList; }
-    public void setBlogList(List<Blog> blogList) { this.blogList = blogList; }
+    public List<Option> getBlogList() { return blogList; }
+    public void setBlogList(List<Option> blogList) { this.blogList = blogList; }
 
     @Override
     public String toString() {
         String blogs ="";
-        for (Blog blog: getBlogList()) {
+        for (Option blog: getBlogList()) {
             blogs += blog.toString();
         }
         return "{" + "\"id\"=" + id + ", \"name\"=\"" + name + "\"" +  ", \"blogs\": [" + blogs + "]" + "}";
