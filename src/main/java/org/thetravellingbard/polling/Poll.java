@@ -48,6 +48,6 @@ public class Poll {
         for (Option option: getOptionList()) {
             options += option.toString();
         }
-        return "{" + "\"id\"=" + id + ", \"question\"=\"" + question + "\"" +  ", \"options\": [" + options + "]" + "}";
+        return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" +  ", \"options\": [" + options + "]" + "}";
     }
 }

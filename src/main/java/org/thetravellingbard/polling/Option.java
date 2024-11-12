@@ -1,13 +1,17 @@
 package org.thetravellingbard.polling;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +36,9 @@ public class Option {
     @JoinColumn(name = "poll_id")
     private Poll poll;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "option", cascade = CascadeType.ALL)
+    private List<Vote> voteList;
+
     public Option() { }
 
     public Option(String text) {
@@ -46,9 +53,12 @@ public class Option {
 
     public Poll getPoll() { return poll; }
     public void setPoll(Poll owner) { this.poll = owner; }
+
+    public List<Vote> getVoteList() { return voteList; }
+    public void setVoteList(List<Vote> voteList) { this.voteList = voteList; }
     
     @Override
     public String toString() {
-        return "{" + "\"id\"=" + id + ", \"text\"=\"" + text + "\"" + "}";
+        return "{" + "\"id\":" + id + ", \"text\":\"" + text + "\"" + "}";
     }
 }

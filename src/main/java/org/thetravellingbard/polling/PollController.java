@@ -23,6 +23,9 @@ public class PollController {
     @Autowired
     private OptionRepository optionRepository;
 
+    @Autowired
+    private VoteRepository voteRepository;
+
     @PostMapping("/savePoll")
     public String savePoll(@RequestBody Poll poll) {
         System.out.println("Poll save called...");
@@ -56,33 +59,62 @@ public class PollController {
     public String saveOption(@RequestParam(name = "id") String id) {
         System.out.println("Blog save called...");
 	
-	// fetch Ower
-        Poll ownerTemp = pollRepository.getReferenceById(Integer.valueOf(id));
+        Poll pollTemp = pollRepository.getReferenceById(Integer.valueOf(id));
 
-	// list of Blog
         List<Option> options = new ArrayList<>();
 
-	// new Blog
         Option option = new Option("Build application server using NodeJs");
-	// set owner to blog
-        option.setPoll(ownerTemp);
-        // add Blog to list
+        option.setPoll(pollTemp);
         options.add(option);
 
         option = new Option("Single Page Application using Angular");
-	// set owner to blog
-        option.setPoll(ownerTemp);
+        option.setPoll(pollTemp);
         options.add(option);
 
-	// add Blog list to Owner
-        ownerTemp.setOptionList(options);
+	// add Option list to Poll
+        pollTemp.setOptionList(options);
 
-	// save Owner
-        pollRepository.save(ownerTemp);
+	// save Poll
+        pollRepository.save(pollTemp);
 
         System.out.println("Saved!!!");
         return "Option saved!!!";
     }
+
+    @PostMapping("/saveVote")
+    public String saveVote(@RequestParam(name = "id") String id) {
+        System.out.println("Vote save called...");
+	
+	// fetch option
+        Option optionTemp = optionRepository.getReferenceById(Integer.valueOf(id));
+
+	// new Vote
+        Vote vote = new Vote();
+        vote.setOption(optionTemp);
+        optionTemp.getVoteList().add(vote);
+        optionRepository.save(optionTemp);
+
+        System.out.println("Saved!!!");
+        return "Vote saved!!!";
+    }
+
+//     @GetMapping("/getVotesForPoll/{id}")
+//     public ResponseEntity<String> getVotesForPoll(@PathVariable(name = "id") String id) {
+//         System.out.println("Poll get called...");
+
+// 	// fetch Owner
+//         Poll pollOut = pollRepository.getReferenceById(Integer.valueOf(id));
+//         for (Option option: pollOut.getOptionList()) {
+//                 option.
+//         }
+//         System.out.println("\nOwner details :: \n" + pollOut);
+//         System.out.println("\nList of Options :: \n" + pollOut.getOptionList());
+
+//         System.out.println("\nDone!!!");
+//         return new ResponseEntity<String>(pollOut.toString(), HttpStatus.OK);
+//     }
+
+    
 
     @GetMapping("/getPoll/{id}")
     public ResponseEntity<String> getPoll(@PathVariable(name = "id") String id) {
