@@ -19,8 +19,8 @@ public class Option {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "text")
+    private String text;
 
     @Column(name = "category")
     private String category;
@@ -34,8 +34,8 @@ public class Option {
 
     public Option() { }
 
-    public Option(String title, String category, String content) {
-        this.title = title;
+    public Option(String text, String category, String content) {
+        this.text = text;
         this.category = category;
         this.content = content;
     }
@@ -43,8 +43,8 @@ public class Option {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getText() { return text; }
+    public void setText(String title) { this.text = title; }
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
@@ -57,7 +57,7 @@ public class Option {
     
     @Override
     public String toString() {
-        return "{" + "\"id\"=" + id + ", \"title\"=\"" + title + "\"" + ", \"category\"=\"" + category + "\"" +
+        return "{" + "\"id\"=" + id + ", \"text\"=\"" + text + "\"" + ", \"category\"=\"" + category + "\"" +
                 ", \"content\"=\"" + content + "\"" + "}";
     }
 }

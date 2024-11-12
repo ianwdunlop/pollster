@@ -34,7 +34,7 @@ public class PollController {
         List<Option> options = new ArrayList<>();
         for (Option optionIn : poll.getOptionList()) {
             // new Option
-            Option option = new Option(optionIn.getTitle(), optionIn.getCategory(), optionIn.getContent());
+            Option option = new Option(optionIn.getText(), optionIn.getCategory(), optionIn.getContent());
             // set owner to this option
             option.setPoll(pollIn);
             // add option to list
