@@ -24,17 +24,13 @@ public class Poll {
     @Column(name = "question")
     private String question;
 
-    @Column(name = "email")
-    private String email;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "poll", cascade = CascadeType.ALL)
     private List<Option> optionList;
 
     public Poll() { }
 
-    public Poll(String question, String email) {
+    public Poll(String question) {
         this.question = question;
-        this.email = email;
     }
 
     public int getId() { return id; }
@@ -42,9 +38,6 @@ public class Poll {
 
     public String getQuestion() {return question; }
     public void setQuestion(String name) { this.question = name; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 
     public List<Option> getOptionList() { return optionList; }
     public void setOptionList(List<Option> optionList) { this.optionList = optionList; }

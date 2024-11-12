@@ -28,7 +28,7 @@ public class PollController {
         System.out.println("Poll save called...");
 
 	// a new poll
-        Poll pollIn = new Poll(poll.getQuestion(), poll.getEmail());
+        Poll pollIn = new Poll(poll.getQuestion());
 
 	// list of Options
         List<Option> options = new ArrayList<>();
@@ -85,16 +85,16 @@ public class PollController {
     }
 
     @GetMapping("/getPoll/{id}")
-    public ResponseEntity<String> getOwner(@PathVariable(name = "id") String id) {
-        System.out.println("Owner get called...");
+    public ResponseEntity<String> getPoll(@PathVariable(name = "id") String id) {
+        System.out.println("Poll get called...");
 
 	// fetch Owner
-        Poll ownerOut = pollRepository.getReferenceById(Integer.valueOf(id));
-        System.out.println("\nOwner details :: \n" + ownerOut);
-        System.out.println("\nList of Blogs :: \n" + ownerOut.getOptionList());
+        Poll pollOut = pollRepository.getReferenceById(Integer.valueOf(id));
+        System.out.println("\nOwner details :: \n" + pollOut);
+        System.out.println("\nList of Options :: \n" + pollOut.getOptionList());
 
         System.out.println("\nDone!!!");
-        return new ResponseEntity<String>(ownerOut.toString(), HttpStatus.OK);
+        return new ResponseEntity<String>(pollOut.toString(), HttpStatus.OK);
     }
 
     @GetMapping("/getOption/{id}")
@@ -103,7 +103,7 @@ public class PollController {
 
 	// fetch Blog
         Option optionOut = optionRepository.getReferenceById(Integer.valueOf(id));
-        System.out.println("\nBlog details :: \n" + optionOut);
+        System.out.println("\nOption details :: \n" + optionOut);
         System.out.println("\nOwner details :: \n" + optionOut.getPoll());
 
         System.out.println("\nDone!!!");
