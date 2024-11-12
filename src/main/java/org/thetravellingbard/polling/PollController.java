@@ -18,25 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/poll")
 public class PollController {
     @Autowired
-    private PollRepository ownerRepository;
+    private PollRepository pollRepository;
 
     @Autowired
-    private OptionRepository blogRepository;
+    private OptionRepository optionRepository;
 
     @PostMapping("/savePoll")
-    public String saveOwner(@RequestBody Poll owner) {
-        System.out.println("Owner save called...");
+    public String savePoll(@RequestBody Poll poll) {
+        System.out.println("Poll save called...");
 
 	// a new poll
-        Poll pollIn = new Poll(owner.getQuestion(), owner.getEmail());
+        Poll pollIn = new Poll(poll.getQuestion(), poll.getEmail());
 
 	// list of Options
         List<Option> options = new ArrayList<>();
-        for (Option optionIn : owner.getOptionList()) {
+        for (Option optionIn : poll.getOptionList()) {
             // new Option
             Option option = new Option(optionIn.getTitle(), optionIn.getCategory(), optionIn.getContent());
             // set owner to this option
-            option.setOwner(pollIn);
+            option.setPoll(pollIn);
             // add option to list
             options.add(option);
         }
@@ -45,7 +45,7 @@ public class PollController {
         pollIn.setOptionList(options);
 
 	// save Owner
-        Poll pollOut = ownerRepository.save(pollIn);
+        Poll pollOut = pollRepository.save(pollIn);
         System.out.println("Poll out :: " + pollOut);
 
         System.out.println("Saved!!!");
@@ -53,11 +53,11 @@ public class PollController {
     }
 
     @PostMapping("/saveOption")
-    public String saveBlog(@RequestParam(name = "id") String id) {
+    public String saveOption(@RequestParam(name = "id") String id) {
         System.out.println("Blog save called...");
 	
 	// fetch Ower
-        Poll ownerTemp = ownerRepository.getReferenceById(Integer.valueOf(id));
+        Poll ownerTemp = pollRepository.getReferenceById(Integer.valueOf(id));
 
 	// list of Blog
         List<Option> blogs = new ArrayList<>();
@@ -66,21 +66,21 @@ public class PollController {
         Option blog = new Option("Build application server using NodeJs", "nodeJs",
                 "We will build REStful api using nodeJs.");
 	// set owner to blog
-        blog.setOwner(ownerTemp);
+        blog.setPoll(ownerTemp);
         // add Blog to list
         blogs.add(blog);
 
         blog = new Option("Single Page Application using Angular", "Angular",
                 "We can build robust application using Angular framework.");
 	// set owner to blog
-        blog.setOwner(ownerTemp);
+        blog.setPoll(ownerTemp);
         blogs.add(blog);
 
 	// add Blog list to Owner
         ownerTemp.setOptionList(blogs);
 
 	// save Owner
-        ownerRepository.save(ownerTemp);
+        pollRepository.save(ownerTemp);
 
         System.out.println("Saved!!!");
         return "Blog saved!!!";
@@ -91,7 +91,7 @@ public class PollController {
         System.out.println("Owner get called...");
 
 	// fetch Owner
-        Poll ownerOut = ownerRepository.getReferenceById(Integer.valueOf(id));
+        Poll ownerOut = pollRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nOwner details :: \n" + ownerOut);
         System.out.println("\nList of Blogs :: \n" + ownerOut.getOptionList());
 
@@ -104,9 +104,9 @@ public class PollController {
         System.out.println("Blog get called...");
 
 	// fetch Blog
-        Option blogOut = blogRepository.getReferenceById(Integer.valueOf(id));
+        Option blogOut = optionRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nBlog details :: \n" + blogOut);
-        System.out.println("\nOwner details :: \n" + blogOut.getOwner());
+        System.out.println("\nOwner details :: \n" + blogOut.getPoll());
 
         System.out.println("\nDone!!!");
         return "Blog fetched...";

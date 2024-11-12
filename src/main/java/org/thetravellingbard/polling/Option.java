@@ -29,8 +29,8 @@ public class Option {
     private String content;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id")
-    private Poll owner;
+    @JoinColumn(name = "poll_id")
+    private Poll poll;
 
     public Option() { }
 
@@ -52,8 +52,8 @@ public class Option {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public Poll getOwner() { return owner; }
-    public void setOwner(Poll owner) { this.owner = owner; }
+    public Poll getPoll() { return poll; }
+    public void setPoll(Poll owner) { this.poll = owner; }
     
     @Override
     public String toString() {
