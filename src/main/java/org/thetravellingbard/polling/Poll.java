@@ -28,7 +28,7 @@ public class Poll {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Option> blogList;
+    private List<Option> optionList;
 
     public Poll() { }
 
@@ -46,15 +46,15 @@ public class Poll {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public List<Option> getBlogList() { return blogList; }
-    public void setBlogList(List<Option> blogList) { this.blogList = blogList; }
+    public List<Option> getOptionList() { return optionList; }
+    public void setOptionList(List<Option> optionList) { this.optionList = optionList; }
 
     @Override
     public String toString() {
-        String blogs ="";
-        for (Option blog: getBlogList()) {
-            blogs += blog.toString();
+        String options ="";
+        for (Option option: getOptionList()) {
+            options += option.toString();
         }
-        return "{" + "\"id\"=" + id + ", \"question\"=\"" + question + "\"" +  ", \"blogs\": [" + blogs + "]" + "}";
+        return "{" + "\"id\"=" + id + ", \"question\"=\"" + question + "\"" +  ", \"options\": [" + options + "]" + "}";
     }
 }

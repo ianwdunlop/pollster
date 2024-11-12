@@ -32,7 +32,7 @@ public class PollController {
 
 	// list of Options
         List<Option> options = new ArrayList<>();
-        for (Option optionIn : owner.getBlogList()) {
+        for (Option optionIn : owner.getOptionList()) {
             // new Option
             Option option = new Option(optionIn.getTitle(), optionIn.getCategory(), optionIn.getContent());
             // set owner to this option
@@ -42,7 +42,7 @@ public class PollController {
         }
         
         // add option list to the poll
-        pollIn.setBlogList(options);
+        pollIn.setOptionList(options);
 
 	// save Owner
         Poll pollOut = ownerRepository.save(pollIn);
@@ -77,7 +77,7 @@ public class PollController {
         blogs.add(blog);
 
 	// add Blog list to Owner
-        ownerTemp.setBlogList(blogs);
+        ownerTemp.setOptionList(blogs);
 
 	// save Owner
         ownerRepository.save(ownerTemp);
@@ -93,7 +93,7 @@ public class PollController {
 	// fetch Owner
         Poll ownerOut = ownerRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nOwner details :: \n" + ownerOut);
-        System.out.println("\nList of Blogs :: \n" + ownerOut.getBlogList());
+        System.out.println("\nList of Blogs :: \n" + ownerOut.getOptionList());
 
         System.out.println("\nDone!!!");
         return new ResponseEntity<String>(ownerOut.toString(), HttpStatus.OK);
