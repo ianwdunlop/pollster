@@ -1,11 +1,13 @@
 package org.thetravellingbard.polling;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,15 @@ public class PollControllerTest {
         poll.setOptionList(options);
         mockMvc.perform(post("/poll/savePoll").contentType(MediaType.APPLICATION_JSON)
         .content(objectMapper.writeValueAsString(poll)))
+        .andExpect(status().isCreated())
+        .andDo(print());
+    }
+
+    @Test
+    void shouldCreateVote() throws Exception {
+        Option option = new Option("Yes");
+        when(optionRepository.getReferenceById(1)).thenReturn(option);
+        mockMvc.perform(post("/poll/saveVote?id=1"))
         .andExpect(status().isCreated())
         .andDo(print());
     }
