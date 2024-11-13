@@ -60,5 +60,18 @@ public class PollControllerTest {
         .andExpect(status().isCreated())
         .andDo(print());
     }
+
+    @Test
+    void pollShouldHaveMoreThanOneOption() throws Exception {
+        Poll poll = new Poll("Is this a good test?");
+        Option firstOption = new Option("Yes");
+        List<Option> options = new ArrayList<Option>();
+        options.add(firstOption);
+        poll.setOptionList(options);
+        mockMvc.perform(post("/poll/savePoll").contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(poll)))
+        .andExpect(status().isBadRequest())
+        .andDo(print());
+    }
     
 }

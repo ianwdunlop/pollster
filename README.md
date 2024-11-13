@@ -2,7 +2,7 @@
 A Springboot based app for creating polls. Each poll has a question and a number of options. Options can be voted on.
 
 ## Adding polls
-Send a json request using curl to the `poll/savePoll` route.
+Send a json request using curl to the `poll/savePoll` route. A poll must have between 2 and 7 options or the request will fail.
 
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{

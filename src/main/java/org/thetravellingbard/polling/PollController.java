@@ -28,7 +28,7 @@ public class PollController {
         private VoteRepository voteRepository;
 
         /**
-         * Creates a new poll from the request json.
+         * Creates a new poll from the request json. A poll can have 2 to 7 options.
          * A request should take the format:
          * 
          * <pre>
@@ -58,6 +58,9 @@ public class PollController {
                         option.setVoteList(votes);
                         // add option to list
                         options.add(option);
+                }
+                if (poll.getOptionList().size() < 2 || poll.getOptionList().size() > 7) {
+                        return new ResponseEntity<>("A poll must have between 2 and 7 options", HttpStatus.BAD_REQUEST);
                 }
 
                 // add option list to the poll
