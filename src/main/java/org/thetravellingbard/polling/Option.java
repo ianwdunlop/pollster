@@ -82,6 +82,6 @@ public class Option {
     @Override
     public String toString() {
         String votes = Integer.toString(getVoteList().size());
-        return "{" + "\"id\":" + id + ", \"text\":\"" + text + "\"" + "\"votes\":" + votes + "}";
+        return "{" + "\"id\":" + id + ", \"text\":\"" + text + "\"" + ", \"votes\":" + votes + "}";
     }
 }

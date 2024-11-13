@@ -1,6 +1,9 @@
 package org.thetravellingbard.polling;
 
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,6 +29,10 @@ public class Poll {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "poll", cascade = CascadeType.ALL)
     private List<Option> optionList;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private Date created_at;
 
     public Poll() {
     }
@@ -64,6 +71,6 @@ public class Poll {
         for (Option option : getOptionList()) {
             options += option.toString();
         }
-        return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" + ", \"options\": [" + options + "]" + "}";
+        return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" + ", \"created\":" + "\"" +  created_at + "\"" + ", \"options\": [" + options + "]" + "}";
     }
 }
