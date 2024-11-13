@@ -27,6 +27,13 @@ public class PollController {
     @Autowired
     private VoteRepository voteRepository;
 
+    /**
+     * Creates a new poll from the request json.
+     * A request should take the format:
+     * <pre>{"question":"What is your most favouritest food?", "options": [{"text":"Beans"}{ "text":"Chips"}]}</pre>
+     * @param poll
+     * @return Http 201 Created
+     */
     @PostMapping("/savePoll")
     public ResponseEntity<String> savePoll(@RequestBody Poll poll) {
         System.out.println("Poll save called...");
@@ -39,7 +46,7 @@ public class PollController {
         for (Option optionIn : poll.getOptionList()) {
             // new Option
             Option option = new Option(optionIn.getText());
-            // set owner to this option
+            // connect poll to the option
             option.setPoll(pollIn);
             // add option to list
             options.add(option);
@@ -57,7 +64,7 @@ public class PollController {
     }
 
     @PostMapping(path = "/saveOption", produces=MediaType.APPLICATION_JSON_VALUE)
-    public String saveOption(@RequestParam(name = "id") String id) {
+    public ResponseEntity<String> saveOption(@RequestParam(name = "id") String id) {
         System.out.println("Option save called...");
 	
         Poll pollTemp = pollRepository.getReferenceById(Integer.valueOf(id));
@@ -79,11 +86,18 @@ public class PollController {
         pollRepository.save(pollTemp);
 
         System.out.println("Saved!!!");
-        return "Option saved!!!";
+        return new ResponseEntity<String>("Create new poll", HttpStatus.CREATED);
     }
 
+    /**
+     * Vote for an option by sending a post request to this route.
+     * A vote needs to include the id of the option as a parameter ie poll/saveVote?id=8
+     * 
+     * @param id
+     * @return
+     */
     @PostMapping("/saveVote")
-    public String saveVote(@RequestParam(name = "id") String id) {
+    public ResponseEntity<String> saveVote(@RequestParam(name = "id") String id) {
         System.out.println("Vote save called...");
 	
 	// fetch option
@@ -96,7 +110,7 @@ public class PollController {
         optionRepository.save(optionTemp);
 
         System.out.println("Saved!!!");
-        return "Vote saved!!!";
+        return new ResponseEntity<String>("Create new vote", HttpStatus.CREATED);
     }
 
 //     @GetMapping("/getVotesForPoll/{id}")
