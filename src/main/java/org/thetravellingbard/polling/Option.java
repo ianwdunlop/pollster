@@ -40,24 +40,45 @@ public class Option {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "option", cascade = CascadeType.ALL)
     private List<Vote> voteList;
 
-    public Option() { }
+    public Option() {
+    }
 
     public Option(String text) {
         this.text = text;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getText() { return text; }
-    public void setText(String title) { this.text = title; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Poll getPoll() { return poll; }
-    public void setPoll(Poll owner) { this.poll = owner; }
+    public String getText() {
+        return text;
+    }
 
-    public List<Vote> getVoteList() { return voteList; }
-    public void setVoteList(List<Vote> voteList) { this.voteList = voteList; }
-    
+    public void setText(String title) {
+        this.text = title;
+    }
+
+    public Poll getPoll() {
+        return poll;
+    }
+
+    public void setPoll(Poll owner) {
+        this.poll = owner;
+    }
+
+    public List<Vote> getVoteList() {
+        return voteList;
+    }
+
+    public void setVoteList(List<Vote> voteList) {
+        this.voteList = voteList;
+    }
+
     @Override
     public String toString() {
         String votes = Integer.toString(getVoteList().size());

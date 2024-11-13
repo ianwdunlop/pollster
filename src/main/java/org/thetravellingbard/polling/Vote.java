@@ -1,7 +1,5 @@
 package org.thetravellingbard.polling;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,17 +31,27 @@ public class Vote {
     @JoinColumn(name = "option_id")
     private Option option;
 
-    public Vote() { }
+    public Vote() {
+    }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public Option getOption() { return option; }
-    public void setOption(Option option) { this.option = option; }
-    
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Option getOption() {
+        return option;
+    }
+
+    public void setOption(Option option) {
+        this.option = option;
+    }
+
     @Override
     public String toString() {
-        return "{" + "\"id\":" + id + "\"created\":" +  "\"" + created_at + "}";
+        return "{" + "\"id\":" + id + "\"created\":" + "\"" + created_at + "}";
     }
 }
-

@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "POLL_DETAILS")
 public class Poll {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -27,27 +27,43 @@ public class Poll {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "poll", cascade = CascadeType.ALL)
     private List<Option> optionList;
 
-    public Poll() { }
+    public Poll() {
+    }
 
     public Poll(String question) {
         this.question = question;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getQuestion() {return question; }
-    public void setQuestion(String name) { this.question = name; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public List<Option> getOptionList() { return optionList; }
-    public void setOptionList(List<Option> optionList) { this.optionList = optionList; }
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String name) {
+        this.question = name;
+    }
+
+    public List<Option> getOptionList() {
+        return optionList;
+    }
+
+    public void setOptionList(List<Option> optionList) {
+        this.optionList = optionList;
+    }
 
     @Override
     public String toString() {
-        String options ="";
-        for (Option option: getOptionList()) {
+        String options = "";
+        for (Option option : getOptionList()) {
             options += option.toString();
         }
-        return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" +  ", \"options\": [" + options + "]" + "}";
+        return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" + ", \"options\": [" + options + "]" + "}";
     }
 }
