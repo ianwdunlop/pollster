@@ -71,32 +71,6 @@ public class PollController {
                 return new ResponseEntity<String>("Create new poll", HttpStatus.CREATED);
         }
 
-        @PostMapping(path = "/saveOption", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<String> saveOption(@RequestParam(name = "id") String id) {
-                System.out.println("Option save called...");
-
-                Poll pollTemp = pollRepository.getReferenceById(Integer.valueOf(id));
-
-                List<Option> options = new ArrayList<>();
-
-                Option option = new Option("Build application server using NodeJs");
-                option.setPoll(pollTemp);
-                options.add(option);
-
-                option = new Option("Single Page Application using Angular");
-                option.setPoll(pollTemp);
-                options.add(option);
-
-                // add Option list to Poll
-                pollTemp.setOptionList(options);
-
-                // save Poll
-                pollRepository.save(pollTemp);
-
-                System.out.println("Saved!!!");
-                return new ResponseEntity<String>("Create new poll", HttpStatus.CREATED);
-        }
-
         /**
          * Vote for an option by sending a post request to this route.
          * A vote needs to include the id of the option as a parameter ie
