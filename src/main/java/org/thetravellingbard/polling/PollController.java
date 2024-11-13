@@ -27,7 +27,7 @@ public class PollController {
     private VoteRepository voteRepository;
 
     @PostMapping("/savePoll")
-    public String savePoll(@RequestBody Poll poll) {
+    public ResponseEntity<String> savePoll(@RequestBody Poll poll) {
         System.out.println("Poll save called...");
 
 	// a new poll
@@ -52,7 +52,7 @@ public class PollController {
         System.out.println("Poll out :: " + pollOut);
 
         System.out.println("Saved!!!");
-        return "Poll saved!!!";
+        return new ResponseEntity<String>("Create new poll", HttpStatus.CREATED);
     }
 
     @PostMapping("/saveOption")
