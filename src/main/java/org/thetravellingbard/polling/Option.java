@@ -1,5 +1,6 @@
 package org.thetravellingbard.polling;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -37,7 +38,7 @@ public class Option {
     private Poll poll;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "option", cascade = CascadeType.ALL)
-    private List<Vote> voteList;
+    private List<Vote> voteList = new ArrayList<Vote>();
 
     public Option() { }
 
