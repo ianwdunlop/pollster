@@ -54,6 +54,8 @@ public class PollControllerTest {
     @Test
     void shouldCreateVote() throws Exception {
         Option option = new Option("Yes");
+        List<Vote> votes= new ArrayList<>();
+        option.setVoteList(votes);
         when(optionRepository.getReferenceById(1)).thenReturn(option);
         mockMvc.perform(post("/poll/saveVote?id=1"))
         .andExpect(status().isCreated())

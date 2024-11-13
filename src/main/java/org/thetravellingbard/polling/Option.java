@@ -38,7 +38,7 @@ public class Option {
     private Poll poll;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "option", cascade = CascadeType.ALL)
-    private List<Vote> voteList = new ArrayList<Vote>();
+    private List<Vote> voteList;
 
     public Option() { }
 
@@ -60,6 +60,7 @@ public class Option {
     
     @Override
     public String toString() {
-        return "{" + "\"id\":" + id + ", \"text\":\"" + text + "\"" + "}";
+        String votes = Integer.toString(getVoteList().size());
+        return "{" + "\"id\":" + id + ", \"text\":\"" + text + "\"" + "\"votes\":" + votes + "}";
     }
 }

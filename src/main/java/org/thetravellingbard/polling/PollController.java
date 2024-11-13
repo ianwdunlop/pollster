@@ -43,11 +43,15 @@ public class PollController {
 
 	// list of Options
         List<Option> options = new ArrayList<>();
+
         for (Option optionIn : poll.getOptionList()) {
             // new Option
             Option option = new Option(optionIn.getText());
             // connect poll to the option
             option.setPoll(pollIn);
+            // add empty list of votes
+            List<Vote> votes = new ArrayList<>();
+            option.setVoteList(votes);
             // add option to list
             options.add(option);
         }
@@ -112,30 +116,20 @@ public class PollController {
         System.out.println("Saved!!!");
         return new ResponseEntity<String>("Create new vote", HttpStatus.CREATED);
     }
-
-//     @GetMapping("/getVotesForPoll/{id}")
-//     public ResponseEntity<String> getVotesForPoll(@PathVariable(name = "id") String id) {
-//         System.out.println("Poll get called...");
-
-// 	// fetch Owner
-//         Poll pollOut = pollRepository.getReferenceById(Integer.valueOf(id));
-//         for (Option option: pollOut.getOptionList()) {
-//                 option.
-//         }
-//         System.out.println("\nOwner details :: \n" + pollOut);
-//         System.out.println("\nList of Options :: \n" + pollOut.getOptionList());
-
-//         System.out.println("\nDone!!!");
-//         return new ResponseEntity<String>(pollOut.toString(), HttpStatus.OK);
-//     }
-
     
 
+    /**
+     * Returns json response for a Poll including the options and the number of
+     * votes for an option.
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/getPoll/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getPoll(@PathVariable(name = "id") String id) {
         System.out.println("Poll get called...");
 
-	// fetch Owner
+	// fetch Poll
         Poll pollOut = pollRepository.getReferenceById(Integer.valueOf(id));
         System.out.println("\nOwner details :: \n" + pollOut);
         System.out.println("\nList of Options :: \n" + pollOut.getOptionList());
