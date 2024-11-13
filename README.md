@@ -39,7 +39,7 @@ docker compose up -d db
 ```
 
 ## Running
-Ensure that postgres is runnind and the `application.properties` file has the correct details.
+Ensure that postgres is running and the `application.properties` file has the correct details.
 ```bash
 mvn spring-boot:run
 ```
