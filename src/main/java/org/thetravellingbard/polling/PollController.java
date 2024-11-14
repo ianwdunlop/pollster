@@ -119,4 +119,21 @@ public class PollController {
                 return new ResponseEntity<String>(pollOut.toString(), HttpStatus.OK);
         }
 
+        /**
+         * Returns all the polls in a json formatted list. Includes the id and the question
+         * 
+         * @return 
+         */
+        @GetMapping(path = "/getPolls", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<String> getPolls() {
+                List<Poll> polls = pollRepository.findAll();
+                String pollsJson = "";
+                for (Poll poll: polls) {
+                        pollsJson += "{\"id\":" + poll.getId() + ",\"question\": \"" + poll.getQuestion() + "\"},";
+                }
+                // Remove the trailing comma
+                pollsJson = pollsJson.substring(0, pollsJson.length() - 1);
+                return new ResponseEntity<String>("[" + pollsJson + "]", HttpStatus.OK);
+        }
+
 }

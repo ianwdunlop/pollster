@@ -31,6 +31,14 @@ Each option within a poll also gets a unique id and you can vote for it by sendi
 curl -H "Content-Type: application/json" -X POST http://localhost:8080/poll/saveVote?id=8
 ```
 
+You can get a list of all polls by sending a rquest to `polls/getPolls`.
+```bash
+curl -X GET http://localhost:8080/poll/getPolls
+```
+```json
+[{"id":1,"question": "What is your most favouritest food?"},{"id":2,"question": "What is your favourite season?"}]
+```
+
 ## Storing data
 The app has an `application.properties` file setup to use postgres. By default it uses the username/password of `postgres`. Which is also used by the docker compose file provided.
 
