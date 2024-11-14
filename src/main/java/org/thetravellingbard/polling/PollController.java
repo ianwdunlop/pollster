@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +40,7 @@ public class PollController {
          * @param poll
          * @return Http 201 Created
          */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
         @PostMapping("/savePoll")
         public ResponseEntity<String> savePoll(@RequestBody Poll poll) {
                 System.out.println("Poll save called...");
@@ -82,6 +85,7 @@ public class PollController {
          * @param id
          * @return
          */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
         @PostMapping("/saveVote")
         public ResponseEntity<String> saveVote(@RequestParam(name = "id") String id) {
                 System.out.println("Vote save called...");
@@ -106,6 +110,7 @@ public class PollController {
          * @param id
          * @return
          */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
         @GetMapping(path = "/getPoll/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<String> getPoll(@PathVariable(name = "id") String id) {
                 System.out.println("Poll get called...");
@@ -124,6 +129,7 @@ public class PollController {
          * 
          * @return 
          */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
         @GetMapping(path = "/getPolls", produces = MediaType.APPLICATION_JSON_VALUE)
         public ResponseEntity<String> getPolls() {
                 List<Poll> polls = pollRepository.findAll();

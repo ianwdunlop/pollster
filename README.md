@@ -56,3 +56,6 @@ mvn spring-boot:run
 ```bash
 mvn test -Dtest=PollControllerTest.java
 ```
+
+## Notes
+Each route is annotated with CORS and allows access from any origin ie `*`. You should change this to allow specific origins in any sort of production environment.
