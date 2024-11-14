@@ -117,11 +117,55 @@ public class PollController {
 
                 // fetch Poll
                 Poll pollOut = pollRepository.getReferenceById(Integer.valueOf(id));
-                System.out.println("\nOwner details :: \n" + pollOut);
+                System.out.println("\nDetails :: \n" + pollOut);
                 System.out.println("\nList of Options :: \n" + pollOut.getOptionList());
 
                 System.out.println("\nDone!!!");
                 return new ResponseEntity<String>(pollOut.toString(), HttpStatus.OK);
+        }
+
+        /**
+         * Returns json response for an Option including the number of votes and the number of
+         * votes for an option.
+         * 
+         * @param id
+         * @return
+         */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
+        @GetMapping(path = "/getOption/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<String> getOption(@PathVariable(name = "id") String id) {
+                System.out.println("Option get called...");
+
+                // fetch Poll
+                Option option = optionRepository.getReferenceById(Integer.valueOf(id));
+                System.out.println("\nDetails :: \n" + option);
+
+                return new ResponseEntity<String>(option.toString(), HttpStatus.OK);
+        }
+
+        /**
+         * Returns json response containing votes including times and option id for a poll
+         * 
+         * @param id
+         * @return
+         */
+        @CrossOrigin(origins = "*",  methods = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
+        @GetMapping(path = "/getVotesForPoll/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+        public ResponseEntity<String> getVote(@PathVariable(name = "id") String id) {
+                System.out.println("Get votees for a poll called...");
+
+                // fetch Poll
+                Poll poll = pollRepository.getReferenceById(Integer.valueOf(id));
+                System.out.println("\nDetails :: \n" + poll);
+
+                String votes = "";
+                for (Option option: poll.getOptionList()) {
+                        for (Vote vote: option.getVoteList()) {
+                        votes += "{\"option\":" + option.getId() + ",\"created_at\": " + "\"" + vote.getCreatedAt().toString() + "\"},";
+                        }
+                }
+                votes = votes.substring(0, votes.length() - 1);
+                return new ResponseEntity<String>("[" + votes + "]", HttpStatus.OK);
         }
 
         /**

@@ -34,6 +34,10 @@ public class Vote {
     public Vote() {
     }
 
+    public Date getCreatedAt() {
+        return created_at;
+    }
+
     public int getId() {
         return id;
     }

@@ -39,6 +39,22 @@ curl -X GET http://localhost:8080/poll/getPolls
 [{"id":1,"question": "What is your most favouritest food?"},{"id":2,"question": "What is your favourite season?"}]
 ```
 
+Get the details for a single option plus the current vote count.
+```bash
+curl -X GET http://localhost:8080/poll/getOption/1
+```
+```json
+{"id":1, "text":"Beans", "votes":5}
+```
+
+Get all the votes for a particular poll including the option voted for and the time.
+```bash
+curl -X GET http://localhost:8080/poll/getVotesForPoll/1
+```
+```json
+[{"option":1,"created_at": "2024-11-13 13:52:01.742"},{"option":1,"created_at": "2024-11-14 14:05:40.442"},{"option":1,"created_at": "2024-11-14 14:08:19.524"},{"option":1,"created_at": "2024-11-14 14:41:51.433"},{"option":1,"created_at": "2024-11-14 14:42:58.883"},{"option":2,"created_at": "2024-11-14 14:07:06.391"},{"option":2,"created_at": "2024-11-14 14:20:05.328"},{"option":2,"created_at": "2024-11-14 14:20:25.874"}]
+```
+
 ## Storing data
 The app has an `application.properties` file setup to use postgres. By default it uses the username/password of `postgres`. Which is also used by the docker compose file provided.
 
