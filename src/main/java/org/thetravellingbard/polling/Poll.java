@@ -69,8 +69,10 @@ public class Poll {
     public String toString() {
         String options = "";
         for (Option option : getOptionList()) {
-            options += option.toString();
+            options += option.toString() + ",";
         }
+        // remove trailing comma
+        options = options.substring(0, options.length() - 1);
         return "{" + "\"id\":" + id + ", \"question\":\"" + question + "\"" + ", \"created\":" + "\"" +  created_at + "\"" + ", \"options\": [" + options + "]" + "}";
     }
 }
